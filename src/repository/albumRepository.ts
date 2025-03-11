@@ -24,3 +24,7 @@ export const albumsLinkToSongs = (_album: AlbumType, _songs: SongType[]): AlbumT
 export const albumsUnlinkToSongs = (_album: AlbumType, _songs: SongType[]): AlbumType[] => {
   throw new NotImplementedError();
 };
+
+export const convertFolderToAlbum = (_folder_path: string): AlbumType[] => {
+  throw new NotImplementedError();
+};
