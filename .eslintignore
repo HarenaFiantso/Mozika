@@ -1,0 +1,7 @@
+node_modules
+ios
+android
+.expo
+.vscode
+package.json
+.eslintignore
