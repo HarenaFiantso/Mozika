@@ -1,5 +1,5 @@
-import { NotImplementedError } from '@/errors';
-import { AlbumType, CrupdateAlbum, SongType } from '@/types';
+import { AlbumType, CrupdateAlbum, SongType } from '@/types/types';
+import { NotImplementedError } from '@/utils/errors';
 
 export const crupdateAlbums = (_toCrupdate: CrupdateAlbum[]): AlbumType[] => {
   throw new NotImplementedError();
