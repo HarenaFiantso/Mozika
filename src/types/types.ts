@@ -1,3 +1,6 @@
+import { NotImplementedError } from '@/utils/errors';
+import SoundPlayer from 'react-native-sound-player';
+
 class SongType {
   id: number;
   name: string;
@@ -10,11 +13,15 @@ class SongType {
   }
 
   play(): void {
-    throw new NotImplementedError();
+    try {
+      SoundPlayer.playAsset(require(this.localPath));
+    } catch (e) {
+      console.error(`Cannot play the sound file`, e);
+    }
   }
 
   pause(): void {
-    throw new NotImplementedError();
+    SoundPlayer.pause();
   }
 
   path_exist(): boolean {
