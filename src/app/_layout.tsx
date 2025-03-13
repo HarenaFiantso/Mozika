@@ -6,6 +6,7 @@ export default function RootLayout() {
     <Stack screenOptions={{ animation: 'slide_from_right' }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="whoami" options={{ headerShown: false }} />
+      <Stack.Screen name="(root)" options={{ headerShown: false }} />
     </Stack>
   );
 }
