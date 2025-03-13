@@ -1,13 +1,13 @@
-import { Text, View } from 'react-native';
-
-import { useUserStore } from '@/stores';
+import { HomeHeader } from '@/components';
+import LinearGradient from 'react-native-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
-  const { name } = useUserStore();
-
   return (
-    <View className="flex-1 items-center justify-center bg-black">
-      <Text className="text-2xl font-bold text-white">Hello, {name}!</Text>
-    </View>
+    <LinearGradient colors={['rgb(23,88,100)', '#000000']} style={{ flex: 1 }}>
+      <SafeAreaView className="flex-1">
+        <HomeHeader />
+      </SafeAreaView>
+    </LinearGradient>
   );
 }

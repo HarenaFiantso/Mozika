@@ -10,6 +10,8 @@ import { BackButton, CustomButton } from '@/components/core';
 export default function Whoami() {
   const navigation = useNavigation();
   const router = useRouter();
+
+  // TODO: Persist the user name into the local storage
   const { name, setName } = useUserStore();
 
   const handleSubmit = () => {
