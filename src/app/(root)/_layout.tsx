@@ -1,8 +1,10 @@
+import { TabBar } from '@/components';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Tabs } from 'expo-router';
 
 export default function MozLayout() {
   return (
-    <Tabs>
+    <Tabs tabBar={(props: BottomTabBarProps) => <TabBar {...props} />}>
       <Tabs.Screen
         name="index"
         options={{

@@ -36,7 +36,7 @@ export default function Whoami() {
         <CustomButton
           handleSubmit={handleSubmit}
           title="Submit"
-          additionalStyles="bg-[#06A0B5] shadow-custom-cyan"
+          additionalStyles="bg-[#06A0B5] shadow-custom-cyan py-5 rounded-[4rem]"
         />
       </SafeAreaView>
     </View>

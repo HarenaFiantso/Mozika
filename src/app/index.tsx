@@ -24,7 +24,7 @@ export default function Welcome() {
         <CustomButton
           handleSubmit={() => router.push('/whoami')}
           title="Get Started"
-          additionalStyles="bg-[#06A0B5] shadow-custom-cyan"
+          additionalStyles="bg-[#06A0B5] shadow-custom-cyan py-5 rounded-[4rem]"
         />
       </View>
       <StatusBar style="light" />
