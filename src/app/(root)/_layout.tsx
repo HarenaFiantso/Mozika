@@ -5,5 +5,5 @@ export default function MozLayout() {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
     </Stack>
-  )
+  );
 }

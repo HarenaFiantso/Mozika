@@ -1,8 +1,10 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { CustomButton } from '@/components/core';
 
 export default function Welcome() {
   const router = useRouter();
@@ -19,12 +21,11 @@ export default function Welcome() {
           <Text className="text-[#76D7E6]">Mozika</Text> now!
         </Text>
         <View className="h-2 w-10 rounded-3xl bg-white" />
-        <TouchableOpacity
-          className="w-full rounded-[4rem] bg-[#06A0B5] py-5 shadow-custom-cyan"
-          onPress={() => router.push('/whoami')}
-        >
-          <Text className="text-center text-xl font-bold text-white">Get Started</Text>
-        </TouchableOpacity>
+        <CustomButton
+          handleSubmit={() => router.push('/whoami')}
+          title="Get Started"
+          additionalStyles="bg-[#06A0B5] shadow-custom-cyan"
+        />
       </View>
       <StatusBar style="light" />
     </SafeAreaView>

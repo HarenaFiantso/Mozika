@@ -1,26 +1,11 @@
-import {
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  View,
-} from 'react-native';
+import { Image, Text, TextInput, View } from 'react-native';
 
 import { useUserStore } from '@/stores';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-function BackButton({ children, ...rest }: TouchableOpacityProps) {
-  return (
-    <TouchableOpacity className="self-start" {...rest}>
-      <MaterialIcons name="arrow-back" color="white" size={35} />
-      {children}
-    </TouchableOpacity>
-  );
-}
+import { BackButton, CustomButton } from '@/components/core';
 
 export default function Whoami() {
   const navigation = useNavigation();
@@ -48,12 +33,11 @@ export default function Whoami() {
             onChangeText={setName}
           />
         </View>
-        <TouchableOpacity
-          className="w-[90%] rounded-[4rem] bg-[#06A0B5] py-5 shadow-custom-cyan"
-          onPress={handleSubmit}
-        >
-          <Text className="text-center text-xl font-bold text-white">Submit</Text>
-        </TouchableOpacity>
+        <CustomButton
+          handleSubmit={handleSubmit}
+          title="Submit"
+          additionalStyles="bg-[#06A0B5] shadow-custom-cyan"
+        />
       </SafeAreaView>
     </View>
   );
