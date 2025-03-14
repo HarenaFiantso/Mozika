@@ -1,5 +1,6 @@
 import { Pressable, Text, View } from 'react-native';
 
+import { TabBar } from '@/components';
 import '@/global.css';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { Stack, Tabs } from 'expo-router';
@@ -11,18 +12,18 @@ export default function RootLayout() {
         headerStyle: {
           backgroundColor: '#000',
         },
-        headerTintColor: "#fff",
+        headerTintColor: '#fff',
         headerTitleStyle: {
-          fontWeight: "bold",
-          fontSize: 25
+          fontWeight: 'bold',
+          fontSize: 25,
         },
         headerLeft: () => (
-          <Pressable className="pl-5 mr-5">
+          <Pressable className="mr-5 pl-5">
             <Ionicons name="menu" size={20} color="gray" />
           </Pressable>
         ),
         headerRight: () => (
-          <View className="gap-5 flex-row">
+          <View className="flex-row gap-5">
             <Pressable className="pr-5">
               <Ionicons name="search" size={20} color="white" />
             </Pressable>
@@ -32,6 +33,7 @@ export default function RootLayout() {
           </View>
         ),
       }}
+      tabBar={props => <TabBar {...props} />}
     >
       <Tabs.Screen name="index" options={{ title: 'Library' }} />
       <Tabs.Screen name="playlist" options={{ title: 'Playlists' }} />

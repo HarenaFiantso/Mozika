@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+
 import LinearGradient from 'react-native-linear-gradient';
 
 export default function Playlist() {
@@ -8,5 +9,5 @@ export default function Playlist() {
         <Text className="text-2xl font-bold text-white">Hello, This is the Playlist screen!</Text>
       </View>
     </LinearGradient>
-  )
+  );
 }
