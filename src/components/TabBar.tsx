@@ -67,10 +67,10 @@ export const TabBar: FC<TabBarProps> = ({ state, descriptors, navigation }) => {
 
 const styles = StyleSheet.create({
   tabBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#0D0F0F',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingVertical: 5,
   },
 });
