@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
+import { unknownTrackImageUri } from '@/constants/images';
 import { Ionicons } from '@expo/vector-icons';
 import LoaderKit from 'react-native-loader-kit';
 import { Track } from 'react-native-track-player';
-import { unknownTrackImageUri } from '@/constants/images';
 
 type TrackListItemProps = {
   track: Track;
