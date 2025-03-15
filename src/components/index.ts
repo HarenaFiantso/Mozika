@@ -7,3 +7,5 @@ export * from './Navbar';
 export * from './Album';
 export * from './Artist';
 export * from './Track';
+export * from './TrackList';
+export * from './TrackListItem';
