@@ -1,6 +1,6 @@
 import { Pressable, View } from 'react-native';
 
-import { PlayerBottom, TabBar } from '@/components';
+import { FloatingPlayer, TabBar } from '@/components';
 import '@/global.css';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
@@ -39,7 +39,7 @@ export default function RootLayout() {
         <Tabs.Screen name="index" options={{ title: 'Library' }} />
         <Tabs.Screen name="playlist" options={{ title: 'Playlists' }} />
       </Tabs>
-      <PlayerBottom />
+      <FloatingPlayer />
     </View>
   );
 }

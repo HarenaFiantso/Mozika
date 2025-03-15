@@ -1,3 +1,5 @@
 export * from './TabBar';
 export * from './TabBarButton';
-export * from './PlayerBottom';
+export * from './FloatingPlayer';
+export * from './MovingText';
+export * from './PlayerControls';
