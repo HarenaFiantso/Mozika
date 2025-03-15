@@ -1,11 +1,26 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+
+import { Album, Artists, Navbar, Tracks } from '@/components';
 
 export default function Home() {
   return (
     <View className="flex-1 bg-black">
-      <View className="flex-1 items-center justify-center">
-        <Text className="text-2xl font-bold text-white">Hello, This is the home screen!</Text>
-      </View>
+      <Navbar
+        tabs={[
+          {
+            name: 'Tracks',
+            component: <Tracks />,
+          },
+          {
+            name: 'Artists',
+            component: <Artists />,
+          },
+          {
+            name: 'Albums',
+            component: <Album />,
+          },
+        ]}
+      />
     </View>
   );
 }

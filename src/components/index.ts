@@ -3,3 +3,7 @@ export * from './TabBarButton';
 export * from './FloatingPlayer';
 export * from './MovingText';
 export * from './PlayerControls';
+export * from './Navbar';
+export * from './Album';
+export * from './Artist';
+export * from './Track';

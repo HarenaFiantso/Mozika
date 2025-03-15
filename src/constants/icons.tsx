@@ -1,10 +1,10 @@
 import { MaterialIcons } from '@expo/vector-icons';
 
-interface IconProps {
+type IconProps = {
   color: string;
 
   [key: string]: any;
-}
+};
 
 export const icons = {
   index: (props: IconProps) => <MaterialIcons name="my-library-music" size={20} {...props} />,
