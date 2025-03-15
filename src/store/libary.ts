@@ -1,17 +1,38 @@
-import { unknownTrackImageUri } from '@/constants/images';
-import { Artist, Playlist, TrackWithPlaylist } from '@/types';
-import library from 'assets/data/library.json';
+import { TrackWithPlaylist } from '@/utils/types';
+import * as MediaLibrary from 'expo-media-library';
+import { Asset } from 'expo-media-library';
 import { Track } from 'react-native-track-player';
 import { create } from 'zustand';
 
 type LibraryState = {
   tracks: TrackWithPlaylist[];
+  fetchTracks: () => Promise<void>;
   toggleTrackFavorite: (track: Track) => void;
   addToPlaylist: (track: Track, playlistName: string) => void;
 };
 
 export const useLibraryStore = create<LibraryState>()(set => ({
-  tracks: library,
+  tracks: [],
+  fetchTracks: async () => {
+    const { status } = await MediaLibrary.requestPermissionsAsync();
+
+    if (status !== 'granted') return;
+
+    const media = await MediaLibrary.getAssetsAsync({
+      mediaType: MediaLibrary.MediaType.audio,
+    });
+
+    const formattedTracks: TrackWithPlaylist[] = media.assets.map((asset: Asset) => ({
+      id: asset.id,
+      title: asset.filename,
+      url: asset.uri,
+      artist: 'Unknown Artist',
+      rating: 0,
+      playlist: [],
+    }));
+
+    set({ tracks: formattedTracks });
+  },
   toggleTrackFavorite: track =>
     set(state => ({
       tracks: state.tracks.map(currentTrack => {
@@ -41,57 +62,3 @@ export const useLibraryStore = create<LibraryState>()(set => ({
 }));
 
 export const useTracks = () => useLibraryStore(state => state.tracks);
-
-export const useFavorites = () => {
-  const favorites = useLibraryStore(state => state.tracks.filter(track => track.rating === 1));
-  const toggleTrackFavorite = useLibraryStore(state => state.toggleTrackFavorite);
-
-  return {
-    favorites,
-    toggleTrackFavorite,
-  };
-};
-
-export const useArtists = () =>
-  useLibraryStore(state => {
-    return state.tracks.reduce((acc, track) => {
-      const existingArtist = acc.find(artist => artist.name === track.artist);
-
-      if (existingArtist) {
-        existingArtist.tracks.push(track);
-      } else {
-        acc.push({
-          name: track.artist ?? 'Unknown',
-          tracks: [track],
-        });
-      }
-
-      return acc;
-    }, [] as Artist[]);
-  });
-
-export const usePlaylists = () => {
-  const playlists = useLibraryStore(state => {
-    return state.tracks.reduce((acc, track) => {
-      track.playlist?.forEach(playlistName => {
-        const existingPlaylist = acc.find(playlist => playlist.name === playlistName);
-
-        if (existingPlaylist) {
-          existingPlaylist.tracks.push(track);
-        } else {
-          acc.push({
-            name: playlistName,
-            tracks: [track],
-            artworkPreview: track.artwork ?? unknownTrackImageUri,
-          });
-        }
-      });
-
-      return acc;
-    }, [] as Playlist[]);
-  });
-
-  const addToPlaylist = useLibraryStore(state => state.addToPlaylist);
-
-  return { playlists, addToPlaylist };
-};

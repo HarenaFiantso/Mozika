@@ -16,7 +16,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   track,
   onTrackSelect: handleTrackSelect,
 }) => {
-  const isPlaying = true;
+  const isPlaying = false;
   const isActiveTrack = true;
 
   return (
