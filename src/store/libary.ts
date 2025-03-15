@@ -20,6 +20,7 @@ export const useLibraryStore = create<LibraryState>()(set => ({
 
     const media = await MediaLibrary.getAssetsAsync({
       mediaType: MediaLibrary.MediaType.audio,
+      sortBy: [MediaLibrary.SortBy.duration],
     });
 
     const formattedTracks: TrackWithPlaylist[] = media.assets.map((asset: Asset) => ({
