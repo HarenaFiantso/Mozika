@@ -38,14 +38,18 @@ export const Navbar: FC<NavbarProps> = ({ tabs, indicatorColor = '#efefef' }) =>
     (menuIndex: number) => {
       scrollRef.current?.scrollTo({ x: screenWidth * menuIndex });
     },
-    [screenWidth],
+    [screenWidth]
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.menu}>
         {tabs.map((tab, index) => (
-          <TouchableOpacity key={index} style={styles.menuButton} onPress={() => handleMenuPress(index)}>
+          <TouchableOpacity
+            key={index}
+            style={styles.menuButton}
+            onPress={() => handleMenuPress(index)}
+          >
             <Animated.Text
               style={{
                 color: indicatorX.interpolate({

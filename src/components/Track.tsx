@@ -1,9 +1,17 @@
-import { Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+
+import { TrackList } from '@/components/TrackList';
 
 export const Tracks = () => {
   return (
-      <View className="flex-1 items-center justify-center">
-        <Text className="text-2xl font-bold text-white">Tracks</Text>
-      </View>
+    <View className="flex-1">
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={{ paddingHorizontal: 24 }}
+        nestedScrollEnabled={true}
+      >
+        <TrackList id={''} tracks={[]} />
+      </ScrollView>
+    </View>
   );
 };

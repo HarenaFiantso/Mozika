@@ -5,5 +5,5 @@ export const Album = () => {
     <View className="flex-1 items-center justify-center">
       <Text className="text-2xl font-bold text-white">Albums</Text>
     </View>
-  )
+  );
 };
