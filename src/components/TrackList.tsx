@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 
 import { FlatList, FlatListProps, Text, View } from 'react-native';
 
-import { queue } from '@/store/queue';
+import { useQueue } from '@/store/queue';
 import TrackPlayer, { Track } from 'react-native-track-player';
 
 import { TrackListItem } from '@/components/TrackListItem';
@@ -32,7 +32,7 @@ export const TrackList: FC<TrackListProps> = ({
   ...flatListProps
 }) => {
   const queueOffset = useRef(0);
-  const { activeQueueId, setActiveQueueId } = queue();
+  const { activeQueueId, setActiveQueueId } = useQueue();
 
   const handleTrackSelect = async (selectedTrack: Track) => {
     const trackIndex = tracks.findIndex(track => track.url === selectedTrack.url);

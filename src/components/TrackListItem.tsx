@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { unknownTrackImageUri } from '@/constants/images';
 import { Ionicons } from '@expo/vector-icons';
 import LoaderKit from 'react-native-loader-kit';
-import { Track } from 'react-native-track-player';
+import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player';
 
 type TrackListItemProps = {
   track: Track;
@@ -16,8 +16,9 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   track,
   onTrackSelect: handleTrackSelect,
 }) => {
-  const isPlaying = false;
-  const isActiveTrack = true;
+  const { playing } = useIsPlaying();
+
+  const isActiveTrack = useActiveTrack()?.url === track.url;
 
   return (
     <TouchableHighlight onPress={() => handleTrackSelect(track)}>
@@ -34,7 +35,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
           />
 
           {isActiveTrack &&
-            (isPlaying ? (
+            (playing ? (
               <LoaderKit
                 style={styles.trackPlayingIconIndicator}
                 name="LineScaleParty"
