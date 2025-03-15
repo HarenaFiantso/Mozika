@@ -10,4 +10,4 @@ const useQueueStore = create<QueueStore>()(set => ({
   setActiveQueueId: id => set({ activeQueueId: id }),
 }));
 
-export const queue = () => useQueueStore(state => state);
+export const useQueue = () => useQueueStore(state => state);

@@ -1,45 +1,37 @@
-import { Pressable, View } from 'react-native';
+import { useCallback } from 'react';
 
-import { FloatingPlayer, TabBar } from '@/components';
-import '@/global.css';
-import { Entypo, Ionicons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { FloatingPlayer } from '@/components';
+import { playbackService } from '@/constants/playbackService';
+import { useLogTrackPlayerState } from '@/hooks/useLogTrackPlayer';
+import { useSetupTrackPlayer } from '@/hooks/useSetupTrackPlayer';
+import { Slot, SplashScreen } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import TrackPlayer from 'react-native-track-player';
 
-export default function RootLayout() {
+SplashScreen.preventAutoHideAsync();
+
+TrackPlayer.registerPlaybackService(() => playbackService);
+
+export default function Layout() {
+  const handleTrackPlayerLoaded = useCallback(() => {
+    SplashScreen.hideAsync();
+  }, []);
+
+  useSetupTrackPlayer({
+    onLoad: handleTrackPlayerLoaded,
+  });
+
+  useLogTrackPlayerState();
+
   return (
-    <View className="flex-1">
-      <Tabs
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#000',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontSize: 25,
-          },
-          headerLeft: () => (
-            <Pressable className="mr-5 pl-5">
-              <Ionicons name="menu" size={20} color="gray" />
-            </Pressable>
-          ),
-          headerRight: () => (
-            <View className="flex-row gap-5">
-              <Pressable className="pr-5">
-                <Ionicons name="search" size={20} color="white" />
-              </Pressable>
-              <Pressable className="pr-5">
-                <Entypo name="dots-three-vertical" size={20} color="white" />
-              </Pressable>
-            </View>
-          ),
-        }}
-        tabBar={props => <TabBar {...props} />}
-      >
-        <Tabs.Screen name="index" options={{ title: 'Library' }} />
-        <Tabs.Screen name="playlist" options={{ title: 'Playlists' }} />
-      </Tabs>
-      <FloatingPlayer />
-    </View>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Slot />
+        <FloatingPlayer />
+        <StatusBar style="auto" />
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }

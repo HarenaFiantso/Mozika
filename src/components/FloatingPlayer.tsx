@@ -1,19 +1,37 @@
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import { unknownTrackImageUri } from '@/constants/images';
+import { useLastActiveTrack } from '@/hooks/useLastActiveTrack';
+import { useRouter } from 'expo-router';
+import { useActiveTrack } from 'react-native-track-player';
+
 import { MovingText } from '@/components/MovingText';
 import { PlayPauseButton, SkipToNextButton } from '@/components/PlayerControls';
 
-// TODO: Make this component dynamic
 export const FloatingPlayer = () => {
+  const router = useRouter();
+
+  const activeTrack = useActiveTrack();
+  const lastActiveTrack = useLastActiveTrack();
+
+  const displayedTrack = activeTrack ?? lastActiveTrack;
+
   const handlePress = () => {
-    console.log('Redirecting to the player screen');
+    router.navigate('/player');
   };
+
+  if (!displayedTrack) return null;
 
   return (
     <TouchableOpacity onPress={handlePress} activeOpacity={0.9} style={styles.container}>
-      <Image source={require('assets/images/song_cover.jpg')} style={styles.trackArtworkImage} />
+      <Image
+        source={{
+          uri: displayedTrack.artwork ?? unknownTrackImageUri,
+        }}
+        style={styles.trackArtworkImage}
+      />
       <View style={styles.trackTitleContainer}>
-        <MovingText text="Hafa mihitsy" animationThreshold={25} />
+        <MovingText text={displayedTrack.title ?? ''} animationThreshold={25} />
       </View>
       <View style={styles.trackControlsContainer}>
         <PlayPauseButton iconSize={24} />
