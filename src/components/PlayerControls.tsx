@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { FontAwesome6 } from '@expo/vector-icons';
 import TrackPlayer, { useIsPlaying } from 'react-native-track-player';
@@ -32,3 +32,36 @@ export const SkipToNextButton: FC<PlayerButtonProps> = ({ iconSize = 30 }) => {
     </TouchableOpacity>
   );
 };
+
+export const SkipToPreviousButton: FC<PlayerButtonProps> = ({ iconSize = 30 }) => {
+  return (
+    <TouchableOpacity activeOpacity={0.7} onPress={() => TrackPlayer.skipToPrevious()}>
+      <FontAwesome6 name={'backward'} size={iconSize} color="white" />
+    </TouchableOpacity>
+  );
+};
+
+export const PlayerControls: FC<PlayerButtonProps> = ({ style }) => {
+  return (
+    <View style={[styles.container, style]}>
+      <View style={styles.row}>
+        <SkipToPreviousButton />
+
+        <PlayPauseButton />
+
+        <SkipToNextButton />
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+});
