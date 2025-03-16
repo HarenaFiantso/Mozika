@@ -39,6 +39,7 @@ export default function RootLayout() {
         <Tabs.Screen name="index" options={{ title: 'Library' }} />
         <Tabs.Screen name="playlist" options={{ title: 'Playlists' }} />
       </Tabs>
+      <FloatingPlayer />
     </View>
   );
 }

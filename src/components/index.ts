@@ -9,3 +9,7 @@ export * from './Artist';
 export * from './Track';
 export * from './TrackList';
 export * from './TrackListItem';
+export * from './DismissPlayerSymbol';
+export * from './PlayerProgresBar';
+export * from './PlayerVolumeBar';
+export * from './PlayerRepeatToggle';
