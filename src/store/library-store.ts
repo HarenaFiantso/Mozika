@@ -1,4 +1,6 @@
-import { TrackWithPlaylist } from '@/utils/types';
+import { useMemo } from 'react';
+
+import { Artist, TrackWithPlaylist } from '@/utils/types';
 import * as MusicLibrary from 'expo-music-library';
 import { Track } from 'react-native-track-player';
 import { create } from 'zustand';
@@ -30,7 +32,12 @@ export const useLibraryStore = create<LibraryState>()(set => ({
         playlist: [],
       }));
 
-      set({ tracks: formattedTracks });
+      set(state => {
+        if (JSON.stringify(state.tracks) !== JSON.stringify(formattedTracks)) {
+          return { tracks: formattedTracks };
+        }
+        return state; // Prevent unnecessary updates
+      });
     } catch (error) {
       console.error('Error fetching tracks:', error);
     }
@@ -64,3 +71,23 @@ export const useLibraryStore = create<LibraryState>()(set => ({
 }));
 
 export const useTracks = () => useLibraryStore(state => state.tracks);
+export const useArtists = () => {
+  const tracks = useLibraryStore(state => state.tracks);
+
+  return useMemo(() => {
+    return tracks.reduce((acc, track) => {
+      const existingArtist = acc.find(artist => artist.name === track.artist);
+
+      if (existingArtist) {
+        existingArtist.tracks.push(track);
+      } else {
+        acc.push({
+          name: track.artist ?? 'Unknown',
+          tracks: [track],
+        });
+      }
+
+      return acc;
+    }, [] as Artist[]);
+  }, [tracks]);
+};
