@@ -1,6 +1,5 @@
 import { TrackWithPlaylist } from '@/utils/types';
-import * as MediaLibrary from 'expo-media-library';
-import { Asset } from 'expo-media-library';
+import * as MusicLibrary from 'expo-music-library';
 import { Track } from 'react-native-track-player';
 import { create } from 'zustand';
 
@@ -14,25 +13,27 @@ type LibraryState = {
 export const useLibraryStore = create<LibraryState>()(set => ({
   tracks: [],
   fetchTracks: async () => {
-    const { status } = await MediaLibrary.requestPermissionsAsync();
+    try {
+      const { granted } = await MusicLibrary.requestPermissionsAsync();
+      if (!granted) return;
 
-    if (status !== 'granted') return;
+      const { assets } = await MusicLibrary.getAssetsAsync();
 
-    const media = await MediaLibrary.getAssetsAsync({
-      mediaType: MediaLibrary.MediaType.audio,
-      sortBy: [MediaLibrary.SortBy.duration],
-    });
+      const formattedTracks: TrackWithPlaylist[] = assets.map(asset => ({
+        id: asset.id,
+        url: asset.uri,
+        title: asset.title,
+        artist: asset.artist ?? 'Unknown Artist',
+        album: asset.albumId ?? 'Unknown Album',
+        duration: asset.duration ?? 0,
+        artwork: asset.artwork,
+        playlist: [],
+      }));
 
-    const formattedTracks: TrackWithPlaylist[] = media.assets.map((asset: Asset) => ({
-      id: asset.id,
-      title: asset.filename,
-      url: asset.uri,
-      artist: 'Unknown Artist',
-      rating: 0,
-      playlist: [],
-    }));
-
-    set({ tracks: formattedTracks });
+      set({ tracks: formattedTracks });
+    } catch (error) {
+      console.error('Error fetching tracks:', error);
+    }
   },
   toggleTrackFavorite: track =>
     set(state => ({
