@@ -12,6 +12,7 @@ export default function RootLayout() {
   const [onSearch, setOnSearch] = useState<boolean>(false);
   const [search, setSearch] = useState<string>();
   const filterCondition = useLibraryStore(state => state.setFilterConditions);
+  const fetchCachedTracks = useLibraryStore(state => state.fetchCachedTracks);
 
   useEffect(() => {
     filterCondition({
@@ -20,6 +21,10 @@ export default function RootLayout() {
       artist: search,
     });
   }, [search]);
+
+  useEffect(() => {
+    fetchCachedTracks();
+  }, []);
 
   return (
     <View className="flex-1">

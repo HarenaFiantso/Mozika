@@ -14,19 +14,49 @@ type FilterConditions = {
 type LibraryState = {
   tracks: TrackWithPlaylist[];
   filterConditions: FilterConditions;
+  cachedTracks: TrackWithPlaylist[];
   setFilterConditions: (filterConditions: FilterConditions) => void;
   fetchTracks: () => Promise<void>;
+  fetchCachedTracks: () => Promise<void>;
   toggleTrackFavorite: (track: Track) => void;
   addToPlaylist: (track: Track, playlistName: string) => void;
 };
 
 export const useLibraryStore = create<LibraryState>()(set => ({
+  cachedTracks: [],
   tracks: [],
   filterConditions: {},
   setFilterConditions: (filterConditions: FilterConditions) => {
     set({ filterConditions: filterConditions });
   },
   fetchTracks: async () => {
+    set(state => ({
+      tracks: state.cachedTracks.filter(assets => {
+        if (
+          !state.filterConditions.artist &&
+          !state.filterConditions.album &&
+          !state.filterConditions.title &&
+          !state.filterConditions.durationMin &&
+          !state.filterConditions.durationMax
+        )
+          return true;
+        return (
+          (assets.artist
+            ?.toLowerCase()
+            .search((state.filterConditions.artist ?? '½').toLowerCase()) ?? -1) > 0 ||
+          (assets.album
+            ?.toLowerCase()
+            .search((state.filterConditions.album ?? '½').toLowerCase()) ?? -1) > 0 ||
+          (assets.title
+            ?.toLowerCase()
+            .search((state.filterConditions.title ?? '½').toLowerCase()) ?? -1) > 0 /* ||
+            (state.filterConditions.durationMin ?? 0) <= (assets.duration ?? 0) ||
+            (assets.duration ?? 0) <= (state.filterConditions.durationMax ?? Infinity)*/
+        );
+      }),
+    }));
+  },
+  fetchCachedTracks: async () => {
     try {
       const { granted } = await MusicLibrary.requestPermissionsAsync();
       if (!granted) return;
@@ -44,31 +74,7 @@ export const useLibraryStore = create<LibraryState>()(set => ({
         playlist: [],
       }));
 
-      set(state => ({
-        tracks: formattedTracks.filter(assets => {
-          if (
-            !state.filterConditions.artist &&
-            !state.filterConditions.album &&
-            !state.filterConditions.title &&
-            !state.filterConditions.durationMin &&
-            !state.filterConditions.durationMax
-          )
-            return true;
-          return (
-            (assets.artist
-              ?.toLowerCase()
-              .search((state.filterConditions.artist ?? '½').toLowerCase()) ?? -1) > 0 ||
-            (assets.album
-              ?.toLowerCase()
-              .search((state.filterConditions.album ?? '½').toLowerCase()) ?? -1) > 0 ||
-            (assets.title
-              ?.toLowerCase()
-              .search((state.filterConditions.title ?? '½').toLowerCase()) ?? -1) > 0 /* ||
-            (state.filterConditions.durationMin ?? 0) <= (assets.duration ?? 0) ||
-            (assets.duration ?? 0) <= (state.filterConditions.durationMax ?? Infinity)*/
-          );
-        }),
-      }));
+      set({ cachedTracks: formattedTracks });
     } catch (error) {
       console.error('Error fetching tracks:', error);
     }
