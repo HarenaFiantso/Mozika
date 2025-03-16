@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { ScrollView, View } from 'react-native';
 
-import { useLibraryStore, useTracks } from '@/store/libary';
+import { useLibraryStore, useTracks } from '@/store/library-store';
 import { generateTracksListId } from '@/utils/miscellanous';
 
 import { TrackList } from '@/components/TrackList';

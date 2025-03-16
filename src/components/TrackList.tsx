@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 
 import { FlatList, FlatListProps, Text, View } from 'react-native';
 
-import { useQueue } from '@/store/queue';
+import { useQueue } from '@/store/queue-store';
 import TrackPlayer, { Track } from 'react-native-track-player';
 
 import { TrackListItem } from '@/components/TrackListItem';
