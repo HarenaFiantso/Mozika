@@ -2,18 +2,19 @@ import { useEffect } from 'react';
 
 import { ScrollView, View } from 'react-native';
 
-import { useLibraryStore, useTracks } from '@/store/library-store';
+import { useFilterTracks, useLibraryStore, useTracks } from '@/store/library-store';
 import { generateTracksListId } from '@/utils/miscellanous';
 
 import { TrackList } from '@/components/TrackList';
 
 export const Tracks = () => {
   const tracks = useTracks();
+  const filter = useFilterTracks();
   const fetchTracks = useLibraryStore(state => state.fetchTracks);
 
   useEffect(() => {
     fetchTracks();
-  }, [fetchTracks]);
+  }, [fetchTracks, filter]);
 
   return (
     <View className="flex-1">
