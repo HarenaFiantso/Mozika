@@ -35,7 +35,7 @@ export const Artists = () => {
           data={artists}
           renderItem={({ item: artist }) => {
             return (
-              <Link href={`/`} asChild>
+              <Link href={`/artists/${artist.name}`} asChild>
                 <TouchableHighlight activeOpacity={0.8}>
                   <View style={styles.artistItemContainer}>
                     <View>

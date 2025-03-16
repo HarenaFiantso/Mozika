@@ -13,3 +13,5 @@ export * from './DismissPlayerSymbol';
 export * from './PlayerProgresBar';
 export * from './PlayerVolumeBar';
 export * from './PlayerRepeatToggle';
+export * from './ArtistTracksList';
+export * from './QueueControls';
