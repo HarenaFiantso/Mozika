@@ -4,21 +4,21 @@ import { Pressable, TextInput, View } from 'react-native';
 
 import { FloatingPlayer, TabBar } from '@/components';
 import '@/global.css';
+import { useLibraryStore } from '@/store/library-store';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { useLibraryStore } from '@/store/library-store';
 
 export default function RootLayout() {
   const [onSearch, setOnSearch] = useState<boolean>(false);
   const [search, setSearch] = useState<string>();
-  const filterCondition = useLibraryStore(state => state.setFilterConditions)
+  const filterCondition = useLibraryStore(state => state.setFilterConditions);
 
   useEffect(() => {
     filterCondition({
       title: search,
       album: search,
       artist: search,
-    })
+    });
   }, [search]);
 
   return (
@@ -46,7 +46,7 @@ export default function RootLayout() {
                   onBlur={() => setOnSearch(true)}
                   placeholder="Rechercher..."
                   onChangeText={setSearch}
-                  className="w-48 rounded-lg border-2 border-gray-300 p-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 text-white"
+                  className="w-48 rounded-lg border-2 border-gray-300 p-3 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 />
               ) : (
                 <Pressable onPress={() => setOnSearch(true)} className="pr-5">

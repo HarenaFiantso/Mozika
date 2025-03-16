@@ -1,15 +1,17 @@
 import { FC, useEffect } from 'react';
 
+import { TextStyle } from 'react-native';
+
 import Animated, {
   Easing,
+  StyleProps,
   cancelAnimation,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withRepeat,
-  withTiming, StyleProps,
+  withTiming,
 } from 'react-native-reanimated';
-import { TextStyle } from 'react-native';
 
 type MovingTextProps = {
   text: string;

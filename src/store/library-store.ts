@@ -31,7 +31,7 @@ export const useLibraryStore = create<LibraryState>()(set => ({
       const { granted } = await MusicLibrary.requestPermissionsAsync();
       if (!granted) return;
 
-      const { assets } = await MusicLibrary.getAssetsAsync({first: 100});
+      const { assets } = await MusicLibrary.getAssetsAsync({ first: 100 });
 
       const formattedTracks: TrackWithPlaylist[] = assets.map(asset => ({
         id: asset.id,
@@ -55,9 +55,15 @@ export const useLibraryStore = create<LibraryState>()(set => ({
           )
             return true;
           return (
-            (assets.artist?.toLowerCase().search((state.filterConditions.artist ?? "½").toLowerCase()) ?? -1) > 0 ||
-            (assets.album?.toLowerCase().search((state.filterConditions.album ?? "½").toLowerCase()) ?? -1) > 0 ||
-            (assets.title?.toLowerCase().search((state.filterConditions.title ?? "½").toLowerCase()) ?? -1) > 0/* ||
+            (assets.artist
+              ?.toLowerCase()
+              .search((state.filterConditions.artist ?? '½').toLowerCase()) ?? -1) > 0 ||
+            (assets.album
+              ?.toLowerCase()
+              .search((state.filterConditions.album ?? '½').toLowerCase()) ?? -1) > 0 ||
+            (assets.title
+              ?.toLowerCase()
+              .search((state.filterConditions.title ?? '½').toLowerCase()) ?? -1) > 0 /* ||
             (state.filterConditions.durationMin ?? 0) <= (assets.duration ?? 0) ||
             (assets.duration ?? 0) <= (state.filterConditions.durationMax ?? Infinity)*/
           );

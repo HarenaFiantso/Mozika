@@ -31,7 +31,11 @@ export const FloatingPlayer = () => {
         style={styles.trackArtworkImage}
       />
       <View style={styles.trackTitleContainer}>
-        <MovingText text={displayedTrack.title ?? ''} animationThreshold={25} style={styles.trackTitle} />
+        <MovingText
+          text={displayedTrack.title ?? ''}
+          animationThreshold={25}
+          style={styles.trackTitle}
+        />
       </View>
       <View style={styles.trackControlsContainer}>
         <PlayPauseButton iconSize={24} />
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   trackTitle: {
-    color: "white",
+    color: 'white',
     fontSize: 18,
     fontWeight: '600',
     paddingLeft: 10,
