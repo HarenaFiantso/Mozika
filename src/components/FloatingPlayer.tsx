@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { unknownTrackImageUri } from '@/constants/images';
 import { useLastActiveTrack } from '@/hooks/useLastActiveTrack';
@@ -36,6 +36,11 @@ export const FloatingPlayer = () => {
           animationThreshold={25}
           style={styles.trackTitle}
         />
+        {activeTrack?.artist && (
+          <Text numberOfLines={1} style={[styles.trackArtistText]}>
+            {activeTrack.artist}
+          </Text>
+        )}
       </View>
       <View style={styles.trackControlsContainer}>
         <PlayPauseButton iconSize={24} />
@@ -67,6 +72,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: '600',
+    paddingLeft: 10,
+  },
+  trackArtistText: {
+    color: 'white',
+    fontSize: 12,
+    opacity: 0.8,
+    maxWidth: '90%',
     paddingLeft: 10,
   },
   trackControlsContainer: {
