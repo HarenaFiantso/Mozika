@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { playbackService } from '@/constants/playbackService';
 import { useLogTrackPlayerState } from '@/hooks/useLogTrackPlayer';
 import { useSetupTrackPlayer } from '@/hooks/useSetupTrackPlayer';
+import { FontAwesome6 } from '@expo/vector-icons';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -27,8 +28,22 @@ export default function Layout() {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Stack>
+        <Stack screenOptions={{ animation: 'slide_from_right' }}>
           <Stack.Screen name="(root)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="artists/[name]"
+            options={{
+              title: 'Artists',
+              headerStyle: {
+                backgroundColor: '#000',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 25,
+              },
+            }}
+          />
           <Stack.Screen
             name="player"
             options={{
