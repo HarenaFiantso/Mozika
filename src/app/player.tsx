@@ -50,7 +50,7 @@ export default function Player() {
                 }}
               >
                 <View style={styles.trackTitleContainer}>
-                  <MovingText text={activeTrack?.title ?? ''} animationThreshold={30} />
+                  <MovingText text={activeTrack?.title ?? ''} animationThreshold={30} style={styles.trackTitleText} />
                 </View>
               </View>
               {activeTrack?.artist && (
@@ -98,6 +98,11 @@ const styles = StyleSheet.create({
   trackTitleContainer: {
     flex: 1,
     overflow: 'hidden',
+  },
+  trackTitleText: {
+    color: "white",
+    fontSize: 22,
+    fontWeight: '700',
   },
   trackArtistText: {
     color: 'white',

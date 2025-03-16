@@ -7,15 +7,17 @@ import Animated, {
   useSharedValue,
   withDelay,
   withRepeat,
-  withTiming,
+  withTiming, StyleProps,
 } from 'react-native-reanimated';
+import { TextStyle } from 'react-native';
 
 type MovingTextProps = {
   text: string;
   animationThreshold: number;
+  style: StyleProps;
 };
 
-export const MovingText: FC<MovingTextProps> = ({ text, animationThreshold }) => {
+export const MovingText: FC<MovingTextProps> = ({ text, animationThreshold, style }) => {
   const translateX = useSharedValue(0);
   const shouldAnimate = text.length >= animationThreshold;
 
@@ -52,16 +54,11 @@ export const MovingText: FC<MovingTextProps> = ({ text, animationThreshold }) =>
     <Animated.Text
       numberOfLines={1}
       style={[
+        style as TextStyle,
         animatedStyle,
         shouldAnimate && {
           width: 9999,
           paddingLeft: 16,
-        },
-        {
-          color: '#fff',
-          fontSize: 18,
-          fontWeight: '600',
-          paddingLeft: 10,
         },
       ]}
     >
