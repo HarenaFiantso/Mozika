@@ -41,7 +41,7 @@ export const Artists = () => {
                     <View>
                       <Image
                         source={{
-                          uri: unknownArtistImageUri,
+                          uri: artist.tracks[0].artwork,
                         }}
                         style={styles.artistImage}
                       />

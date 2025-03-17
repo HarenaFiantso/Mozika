@@ -32,7 +32,9 @@ export const ArtistTracksList = ({ artist }: { artist: Artist }) => {
         <View>
           <View style={styles.artworkImageContainer}>
             <Image
-              source={require('assets/images/Lofi-Urban-Nightscape.png')}
+              source={{
+                uri: artist.tracks[0].artwork
+              }}
               style={styles.artistImage}
             />
           </View>
