@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
@@ -17,8 +17,12 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   onTrackSelect: handleTrackSelect,
 }) => {
   const { playing } = useIsPlaying();
-
   const isActiveTrack = useActiveTrack()?.url === track.url;
+  const [artworkError, setArtworkError] = useState(false);
+
+  const handleImageError = () => {
+    setArtworkError(true);
+  };
 
   return (
     <TouchableHighlight onPress={() => handleTrackSelect(track)}>
@@ -26,12 +30,13 @@ export const TrackListItem: FC<TrackListItemProps> = ({
         <View>
           <Image
             source={{
-              uri: track.artwork ?? unknownTrackImageUri,
+              uri: artworkError ? unknownTrackImageUri : track.artwork,
             }}
             style={{
               ...styles.trackArtworkImage,
               opacity: isActiveTrack ? 0.6 : 1,
             }}
+            onError={handleImageError}
           />
 
           {isActiveTrack &&

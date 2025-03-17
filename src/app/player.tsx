@@ -14,6 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ReanimatedLogLevel, configureReanimatedLogger } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useActiveTrack } from 'react-native-track-player';
+import { useState } from 'react';
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -25,6 +26,13 @@ export default function Player() {
   // TODO: Fix this correctly to get the dominant color from the current active track's artwork.
   const { imageColors } = usePlayerBackground(activeTrack?.artwork ?? unknownTrackImageUri);
   const { top, bottom } = useSafeAreaInsets();
+
+  const [artworkError, setArtworkError] = useState(false);
+
+  const handleImageError = () => {
+    setArtworkError(true);
+  };
+
 
   return (
     <LinearGradient
@@ -38,10 +46,11 @@ export default function Player() {
           <View style={styles.artworkImageContainer}>
             <Image
               source={{
-                uri: activeTrack?.artwork ?? unknownTrackImageUri,
+                uri: artworkError ? unknownTrackImageUri : activeTrack?.artwork,
               }}
               resizeMode="cover"
               style={styles.artworkImage}
+              onError={handleImageError}
             />
           </View>
         </View>

@@ -15,3 +15,4 @@ export * from './PlayerVolumeBar';
 export * from './PlayerRepeatToggle';
 export * from './ArtistTracksList';
 export * from './QueueControls';
+export * from './PlaylistList';
