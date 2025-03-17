@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { Artist, TrackWithPlaylist } from '@/utils/types';
+import { unknownTrackImageUri } from '@/constants/images';
+import { Artist, Playlist, TrackWithPlaylist } from '@/utils/types';
 import * as MusicLibrary from 'expo-music-library';
 import { Asset } from 'expo-music-library';
 import { Track } from 'react-native-track-player';
@@ -102,4 +103,32 @@ export const useArtists = () => {
       return acc;
     }, [] as Artist[]);
   }, [tracks]);
+};
+
+export const usePlaylists = () => {
+  const playlists = useLibraryStore(state => state.tracks);
+
+  const memoizedPlaylists = useMemo(() => {
+    return playlists.reduce((acc, track) => {
+      track.playlist?.forEach(playlistName => {
+        const existingPlaylist = acc.find(playlist => playlist.name === playlistName);
+
+        if (existingPlaylist) {
+          existingPlaylist.tracks.push(track);
+        } else {
+          acc.push({
+            name: playlistName,
+            tracks: [track],
+            artworkPreview: track.artwork ?? unknownTrackImageUri,
+          });
+        }
+      });
+
+      return acc;
+    }, [] as Playlist[]);
+  }, [playlists]);
+
+  const addToPlaylist = useLibraryStore(state => state.addToPlaylist);
+
+  return { playlists: memoizedPlaylists, addToPlaylist };
 };
