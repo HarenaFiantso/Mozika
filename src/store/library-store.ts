@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { Artist, TrackWithPlaylist } from '@/utils/types';
 import * as MusicLibrary from 'expo-music-library';
+import { Asset } from 'expo-music-library';
 import { Track } from 'react-native-track-player';
 import { create } from 'zustand';
-import { Asset } from 'expo-music-library';
 
 type LibraryState = {
   tracks: TrackWithPlaylist[];
@@ -20,7 +20,9 @@ export const useLibraryStore = create<LibraryState>()(set => ({
       const { granted } = await MusicLibrary.requestPermissionsAsync();
       if (!granted) return;
 
-      let hasNextPage;
+      const { assets } = await MusicLibrary.getAssetsAsync({ first: 100 });
+
+      /*let hasNextPage;
       let assets: Asset[] = [];
       let endCursor;
 
@@ -29,7 +31,7 @@ export const useLibraryStore = create<LibraryState>()(set => ({
         hasNextPage = page.hasNextPage;
         endCursor = page.endCursor;
         assets = assets.concat(page.assets);
-      } while (hasNextPage)
+      } while (hasNextPage);*/
 
       const formattedTracks: TrackWithPlaylist[] = assets.map(asset => ({
         id: asset.id,
@@ -46,7 +48,7 @@ export const useLibraryStore = create<LibraryState>()(set => ({
         if (JSON.stringify(state.tracks) !== JSON.stringify(formattedTracks)) {
           return { tracks: formattedTracks };
         }
-        return state; // Prevent unnecessary updates
+        return state;
       });
     } catch (error) {
       console.error('Error fetching tracks:', error);

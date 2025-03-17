@@ -11,18 +11,25 @@ import {
 import { unknownTrackImageUri } from '@/constants/images';
 import { usePlayerBackground } from '@/hooks/usePlayerBackground';
 import { LinearGradient } from 'expo-linear-gradient';
+import { ReanimatedLogLevel, configureReanimatedLogger } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useActiveTrack } from 'react-native-track-player';
 
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false,
+});
+
 export default function Player() {
   const activeTrack = useActiveTrack();
+  // TODO: Fix this correctly to get the dominant color from the current active track's artwork.
   const { imageColors } = usePlayerBackground(activeTrack?.artwork ?? unknownTrackImageUri);
   const { top, bottom } = useSafeAreaInsets();
 
   return (
     <LinearGradient
       className="flex-1"
-      colors={imageColors ? [imageColors.darkVibrant, imageColors.vibrant] : ['#000', '#000']}
+      colors={imageColors ? [imageColors.primary, imageColors.secondary] : ['#056070', '#000']}
     >
       <View style={styles.overlayContainer}>
         <DismissPlayerSymbol />

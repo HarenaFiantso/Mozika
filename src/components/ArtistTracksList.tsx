@@ -33,7 +33,7 @@ export const ArtistTracksList = ({ artist }: { artist: Artist }) => {
           <View style={styles.artworkImageContainer}>
             <Image
               source={{
-                uri: artist.tracks[0].artwork
+                uri: artist.tracks[0].artwork,
               }}
               style={styles.artistImage}
             />
