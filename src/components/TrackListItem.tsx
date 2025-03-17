@@ -3,9 +3,11 @@ import { FC, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 import { unknownTrackImageUri } from '@/constants/images';
-import { Ionicons } from '@expo/vector-icons';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import LoaderKit from 'react-native-loader-kit';
 import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player';
+import { StopPropagation } from '@/components/utils/StopPropagation';
+import { TrackShortcutsMenu } from '@/components/TrackShortcutsMenu';
 
 type TrackListItemProps = {
   track: Track;
@@ -76,6 +78,11 @@ export const TrackListItem: FC<TrackListItemProps> = ({
               </Text>
             )}
           </View>
+          <StopPropagation>
+            <TrackShortcutsMenu>
+              <Entypo name="dots-three-horizontal" size={18} color="white" />
+            </TrackShortcutsMenu>
+          </StopPropagation>
         </View>
       </View>
     </TouchableHighlight>

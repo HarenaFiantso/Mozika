@@ -31,12 +31,6 @@
           <string>com.fiantsoravoajanahary.mozika</string>
         </array>
       </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>exp+mozika</string>
-        </array>
-      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>

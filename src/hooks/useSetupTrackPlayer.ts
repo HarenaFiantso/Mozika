@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import TrackPlayer, { Capability, RatingType, RepeatMode } from 'react-native-track-player';
+import TrackPlayer, { Capability, RepeatMode } from 'react-native-track-player';
 
 const setupPlayer = async () => {
   await TrackPlayer.setupPlayer({
@@ -8,7 +8,6 @@ const setupPlayer = async () => {
   });
 
   await TrackPlayer.updateOptions({
-    ratingType: RatingType.Heart,
     capabilities: [
       Capability.Play,
       Capability.Pause,
@@ -16,9 +15,10 @@ const setupPlayer = async () => {
       Capability.SkipToPrevious,
       Capability.Stop,
     ],
+    color: 0x056070,
   });
 
-  await TrackPlayer.setVolume(0.3); // not too loud
+  await TrackPlayer.setVolume(0.3);
   await TrackPlayer.setRepeatMode(RepeatMode.Queue);
 };
 
