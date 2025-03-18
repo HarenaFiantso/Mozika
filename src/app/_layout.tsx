@@ -54,6 +54,12 @@ export default function Layout() {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name="notification.click"
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack>
         <StatusBar style="auto" />
       </GestureHandlerRootView>
