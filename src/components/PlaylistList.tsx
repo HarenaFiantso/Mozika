@@ -20,7 +20,7 @@ export const PlaylistList: FC<PlaylistListProps> = ({
 }) => {
   const search = useNavigationSearch({
     searchBarOptions: {
-      placeholder: 'Find in playlist',
+      placeholder: 'Search in the playlist',
     },
   });
 
@@ -33,9 +33,7 @@ export const PlaylistList: FC<PlaylistListProps> = ({
       contentContainerStyle={{ paddingTop: 10, paddingBottom: 128 }}
       ListEmptyComponent={
         <View className="items-center justify-center">
-          <Text className="text-white" style={{ fontSize: 20 }}>
-            No playlist found
-          </Text>
+          <Text style={{ fontSize: 20, color: 'white' }}>No playlist found</Text>
         </View>
       }
       data={filteredPlaylist}

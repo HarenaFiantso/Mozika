@@ -9,6 +9,9 @@ import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player';
 import { StopPropagation } from '@/components/utils/StopPropagation';
 import { TrackShortcutsMenu } from '@/components/TrackShortcutsMenu';
 
+import { TrackShortcutsMenu } from '@/components/TrackShortcutsMenu';
+import { StopPropagation } from '@/components/utils/StopPropagation';
+
 type TrackListItemProps = {
   track: Track;
   onTrackSelect: (track: Track) => void;
