@@ -9,13 +9,17 @@ import { create } from 'zustand';
 
 type LibraryState = {
   tracks: TrackWithPlaylist[];
+  playlists: Playlist[];
   fetchTracks: () => Promise<void>;
   toggleTrackFavorite: (track: Track) => void;
   addToPlaylist: (track: Track, playlistName: string) => void;
+  createPlaylist: (playlistName: string) => void;
 };
+
 
 export const useLibraryStore = create<LibraryState>()(set => ({
   tracks: [],
+  playlists: [],
   fetchTracks: async () => {
     try {
       const { granted } = await MusicLibrary.requestPermissionsAsync();
@@ -81,6 +85,18 @@ export const useLibraryStore = create<LibraryState>()(set => ({
         return currentTrack;
       }),
     })),
+  createPlaylist: (playlistName) => {
+    set(state => {
+      const newPlaylist: Playlist = {
+        name: playlistName,
+        tracks: [],
+        artworkPreview: unknownTrackImageUri,
+      };
+      return {
+        playlists: [...state.playlists, newPlaylist],
+      };
+    });
+  },
 }));
 
 export const useTracks = () => useLibraryStore(state => state.tracks);
@@ -106,29 +122,9 @@ export const useArtists = () => {
 };
 
 export const usePlaylists = () => {
-  const playlists = useLibraryStore(state => state.tracks);
-
-  const memoizedPlaylists = useMemo(() => {
-    return playlists.reduce((acc, track) => {
-      track.playlist?.forEach(playlistName => {
-        const existingPlaylist = acc.find(playlist => playlist.name === playlistName);
-
-        if (existingPlaylist) {
-          existingPlaylist.tracks.push(track);
-        } else {
-          acc.push({
-            name: playlistName,
-            tracks: [track],
-            artworkPreview: track.artwork ?? unknownTrackImageUri,
-          });
-        }
-      });
-
-      return acc;
-    }, [] as Playlist[]);
-  }, [playlists]);
-
+  const playlists = useLibraryStore(state => state.playlists);
   const addToPlaylist = useLibraryStore(state => state.addToPlaylist);
+  const createPlaylist = useLibraryStore(state => state.createPlaylist);
 
-  return { playlists: memoizedPlaylists, addToPlaylist };
+  return { playlists, addToPlaylist, createPlaylist };
 };

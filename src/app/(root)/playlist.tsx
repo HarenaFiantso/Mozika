@@ -18,6 +18,7 @@ export default function PlaylistScreen() {
 
   const handleCreatePlaylist = () => {
     if (playlistName.trim() !== '') {
+      createPlaylist(playlistName);
       setModalVisible(false);
       setPlaylistName('');
     }
@@ -29,7 +30,7 @@ export default function PlaylistScreen() {
     },
   });
 
-  const { playlists } = usePlaylists();
+  const { playlists, createPlaylist } = usePlaylists();
 
   const filteredPlaylists = useMemo(() => {
     return playlists.filter(playlistNameFilter(search));
