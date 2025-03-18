@@ -76,6 +76,7 @@ export const TrackList: FC<TrackListProps> = ({
       renderItem={({ item: track }) => (
         <TrackListItem track={track} onTrackSelect={handleTrackSelect} />
       )}
+      maxToRenderPerBatch={20}
       {...flatListProps}
     />
   );

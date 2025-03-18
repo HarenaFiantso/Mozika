@@ -24,18 +24,7 @@ export const useLibraryStore = create<LibraryState>()(set => ({
       const { granted } = await MusicLibrary.requestPermissionsAsync();
       if (!granted) return;
 
-      const { assets } = await MusicLibrary.getAssetsAsync({ first: 100 });
-
-      /*let hasNextPage;
-      let assets: Asset[] = [];
-      let endCursor;
-
-      do {
-        const page = await MusicLibrary.getAssetsAsync({ first: 20, after: endCursor });
-        hasNextPage = page.hasNextPage;
-        endCursor = page.endCursor;
-        assets = assets.concat(page.assets);
-      } while (hasNextPage);*/
+      const { assets } = await MusicLibrary.getAssetsAsync({ first: 200 });
 
       const formattedTracks: TrackWithPlaylist[] = assets.map(asset => ({
         id: asset.id,

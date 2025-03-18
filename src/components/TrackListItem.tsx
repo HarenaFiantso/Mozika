@@ -80,7 +80,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
             )}
           </View>
           <StopPropagation>
-            <TrackShortcutsMenu>
+            <TrackShortcutsMenu track={track}>
               <Entypo name="dots-three-horizontal" size={18} color="white" />
             </TrackShortcutsMenu>
           </StopPropagation>

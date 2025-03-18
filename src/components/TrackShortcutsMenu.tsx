@@ -3,21 +3,19 @@ import { PropsWithChildren } from 'react';
 import { MenuView } from '@react-native-menu/menu';
 import { useRouter } from 'expo-router';
 import Snackbar from 'react-native-snackbar';
+import { Track } from 'react-native-track-player';
 import { match } from 'ts-pattern';
 
-type TrackShortcutsMenuProps = PropsWithChildren;
+type TrackShortcutsMenuProps = PropsWithChildren<{ track: Track }>;
 
-export const TrackShortcutsMenu = ({ children }: TrackShortcutsMenuProps) => {
+export const TrackShortcutsMenu = ({ track, children }: TrackShortcutsMenuProps) => {
   const router = useRouter();
 
   const handlePressAction = (id: string) => {
     match(id)
       .with('add-to-playlist', () => {
-        // TODO: Handle the playlist creation
-        Snackbar.show({
-          text: 'Added to playlist',
-          duration: Snackbar.LENGTH_SHORT,
-        });
+        // @ts-expect-error it should work
+        router.push({ pathname: 'addToPlaylist', params: { trackUrl: track.url } });
       })
       .otherwise(() => console.warn(`Unknown menu action ${id}`));
   };

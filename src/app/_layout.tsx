@@ -69,6 +69,20 @@ export default function Layout() {
             }}
           />
           <Stack.Screen
+            name="addToPlaylist"
+            options={{
+              title: 'Add to playlist',
+              headerStyle: {
+                backgroundColor: '#000',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 25,
+              },
+            }}
+          />
+          <Stack.Screen
             name="notification.click"
             options={{
               headerShown: false,
