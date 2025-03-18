@@ -6,8 +6,9 @@ import { unknownTrackImageUri } from '@/constants/images';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import LoaderKit from 'react-native-loader-kit';
 import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player';
-import { StopPropagation } from '@/components/utils/StopPropagation';
+
 import { TrackShortcutsMenu } from '@/components/TrackShortcutsMenu';
+import { StopPropagation } from '@/components/utils/StopPropagation';
 
 type TrackListItemProps = {
   track: Track;

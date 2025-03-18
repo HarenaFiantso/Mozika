@@ -1,10 +1,11 @@
+import { PropsWithChildren } from 'react';
+
 import { MenuView } from '@react-native-menu/menu';
 import { useRouter } from 'expo-router';
-import { PropsWithChildren } from 'react';
-import { match } from 'ts-pattern';
 import Snackbar from 'react-native-snackbar';
+import { match } from 'ts-pattern';
 
-type TrackShortcutsMenuProps = PropsWithChildren
+type TrackShortcutsMenuProps = PropsWithChildren;
 
 export const TrackShortcutsMenu = ({ children }: TrackShortcutsMenuProps) => {
   const router = useRouter();

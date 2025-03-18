@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import {
@@ -14,7 +16,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ReanimatedLogLevel, configureReanimatedLogger } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useActiveTrack } from 'react-native-track-player';
-import { useState } from 'react';
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -32,7 +33,6 @@ export default function Player() {
   const handleImageError = () => {
     setArtworkError(true);
   };
-
 
   return (
     <LinearGradient

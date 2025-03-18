@@ -33,9 +33,7 @@ export const PlaylistList: FC<PlaylistListProps> = ({
       contentContainerStyle={{ paddingTop: 10, paddingBottom: 128 }}
       ListEmptyComponent={
         <View className="items-center justify-center">
-          <Text style={{ fontSize: 20, color: "white" }}>
-            No playlist found
-          </Text>
+          <Text style={{ fontSize: 20, color: 'white' }}>No playlist found</Text>
         </View>
       }
       data={filteredPlaylist}
