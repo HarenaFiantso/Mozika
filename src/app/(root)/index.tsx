@@ -16,10 +16,6 @@ export default function Home() {
             name: 'Artists',
             component: <Artists />,
           },
-          {
-            name: 'Albums',
-            component: <Album />,
-          },
         ]}
       />
     </View>
