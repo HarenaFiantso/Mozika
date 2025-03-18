@@ -37,7 +37,7 @@ export default function PlaylistScreen() {
   }, [playlists, search]);
 
   const handlePlaylistPress = (playlist: Playlist) => {
-    router.push('/playlist');
+    router.push(`/playlists/${playlist.name}`);
   };
 
   const handleImport = () => {

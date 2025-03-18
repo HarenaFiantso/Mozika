@@ -16,3 +16,4 @@ export * from './PlayerRepeatToggle';
 export * from './ArtistTracksList';
 export * from './QueueControls';
 export * from './PlaylistList';
+export * from './PlaylistTracksList';

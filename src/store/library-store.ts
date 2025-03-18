@@ -16,7 +16,6 @@ type LibraryState = {
   createPlaylist: (playlistName: string) => void;
 };
 
-
 export const useLibraryStore = create<LibraryState>()(set => ({
   tracks: [],
   playlists: [],
@@ -85,7 +84,7 @@ export const useLibraryStore = create<LibraryState>()(set => ({
         return currentTrack;
       }),
     })),
-  createPlaylist: (playlistName) => {
+  createPlaylist: playlistName => {
     set(state => {
       const newPlaylist: Playlist = {
         name: playlistName,

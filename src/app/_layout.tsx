@@ -55,13 +55,27 @@ export default function Layout() {
             }}
           />
           <Stack.Screen
+            name="playlists/[name]"
+            options={{
+              title: 'Playlist',
+              headerStyle: {
+                backgroundColor: '#000',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 25,
+              },
+            }}
+          />
+          <Stack.Screen
             name="notification.click"
             options={{
               headerShown: false,
             }}
           />
         </Stack>
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );
